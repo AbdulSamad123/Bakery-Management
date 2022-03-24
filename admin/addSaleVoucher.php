@@ -1,5 +1,15 @@
 <?php include_once('header.php'); ?>
 <?php include_once('headerLinks.php'); ?>
+<?php 
+include "connection.php";
+$obj=new functions();
+$obj->con();
+if(isset($_POST['sub']))
+{
+	$obj->add_invoice($_POST['txtent'],$_POST['txtname'],$_POST['txtchq'],$_POST['txtdate'],$_POST['txtbank'],$_POST['txtstatus']);
+}
+
+?>
 <title>Bakery Software - Admin Sale Voucher</title>
 <body>
 
@@ -39,163 +49,38 @@
                                     <h4 class="card-title">Sale Voucher Details</h4>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <form class="custom-validation" action="#">
+                                            <form class="custom-validation" autocomplete="off" method="post">
                                                 <div class="form-group-row row">
                                                     <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">Invoice Number *</label>
-                                                        <div>
-                                                            <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" disabled />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
                                                         <label class="form-label">Date</label>
-                                                        <input type="date" id="today" class="form-control" required />
+                                                        <input name="txtdate" type="date" id="today" class="form-control" required />
                                                     </div>
                                                     <div class="col-lg-4 col-sm-12 mb-2">
                                                         <label class="form-label">Gate Pass *</label>
                                                         <div>
-                                                            <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" />
+                                                            <input name="txtgate" type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" />
                                                         </div>
                                                     </div>
-                                                </div>
+                                                    <div class="col-lg-4 col-sm-12 mb-2">
+                                                    
+                                                              <label class="form-label">Customer</label>    
+                                                                    <select name="txtcus" class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Supplier">
+                                                                        <option value="0">Select Customer</option>    
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                  </div>
 
 
                                                         <div class="row">
-                                                            <div class="col-lg-4 col-sm-12 mb-2">
-                                                                <div>
-                                                              <label class="form-label">Customer</label>    
 
-                                                                    <select class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Supplier">
-                                                                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                                                                            <option value="AK">Alaska</option>
-                                                                            <option value="HI">Hawaii</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Pacific Time Zone">
-                                                                            <option value="CA">California</option>
-                                                                            <option value="NV">Nevada</option>
-                                                                            <option value="OR">Oregon</option>
-                                                                            <option value="WA">Washington</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Mountain Time Zone">
-                                                                            <option value="AZ">Arizona</option>
-                                                                            <option value="CO">Colorado</option>
-                                                                            <option value="ID">Idaho</option>
-                                                                            <option value="MT">Montana</option>
-                                                                            <option value="NE">Nebraska</option>
-                                                                            <option value="NM">New Mexico</option>
-                                                                            <option value="ND">North Dakota</option>
-                                                                            <option value="UT">Utah</option>
-                                                                            <option value="WY">Wyoming</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Central Time Zone">
-                                                                            <option value="AL">Alabama</option>
-                                                                            <option value="AR">Arkansas</option>
-                                                                            <option value="IL">Illinois</option>
-                                                                            <option value="IA">Iowa</option>
-                                                                            <option value="KS">Kansas</option>
-                                                                            <option value="KY">Kentucky</option>
-                                                                            <option value="LA">Louisiana</option>
-                                                                            <option value="MN">Minnesota</option>
-                                                                            <option value="MS">Mississippi</option>
-                                                                            <option value="MO">Missouri</option>
-                                                                            <option value="OK">Oklahoma</option>
-                                                                            <option value="SD">South Dakota</option>
-                                                                            <option value="TX">Texas</option>
-                                                                            <option value="TN">Tennessee</option>
-                                                                            <option value="WI">Wisconsin</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Eastern Time Zone">
-                                                                            <option value="CT">Connecticut</option>
-                                                                            <option value="DE">Delaware</option>
-                                                                            <option value="FL">Florida</option>
-                                                                            <option value="GA">Georgia</option>
-                                                                            <option value="IN">Indiana</option>
-                                                                            <option value="ME">Maine</option>
-                                                                            <option value="MD">Maryland</option>
-                                                                            <option value="MA">Massachusetts</option>
-                                                                            <option value="MI">Michigan</option>
-                                                                            <option value="NH">New Hampshire</option>
-                                                                            <option value="NJ">New Jersey</option>
-                                                                            <option value="NY">New York</option>
-                                                                            <option value="NC">North Carolina</option>
-                                                                            <option value="OH">Ohio</option>
-                                                                            <option value="PA">Pennsylvania</option>
-                                                                            <option value="RI">Rhode Island</option>
-                                                                            <option value="SC">South Carolina</option>
-                                                                            <option value="VT">Vermont</option>
-                                                                            <option value="VA">Virginia</option>
-                                                                            <option value="WV">West Virginia</option>
-                                                                        </optgroup>
-                                                                    </select>
-                                                                </div>
-
-                                                          </div>
 
                                                             <div class="col-lg-4 col-sm-12 mb-2">
                                                                 <div>
                                                               <label class="form-label">Warehouse</label>       
 
-                                                                    <select class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Warehouse">
-                                                                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                                                                            <option value="AK">Alaska</option>
-                                                                            <option value="HI">Hawaii</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Pacific Time Zone">
-                                                                            <option value="CA">California</option>
-                                                                            <option value="NV">Nevada</option>
-                                                                            <option value="OR">Oregon</option>
-                                                                            <option value="WA">Washington</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Mountain Time Zone">
-                                                                            <option value="AZ">Arizona</option>
-                                                                            <option value="CO">Colorado</option>
-                                                                            <option value="ID">Idaho</option>
-                                                                            <option value="MT">Montana</option>
-                                                                            <option value="NE">Nebraska</option>
-                                                                            <option value="NM">New Mexico</option>
-                                                                            <option value="ND">North Dakota</option>
-                                                                            <option value="UT">Utah</option>
-                                                                            <option value="WY">Wyoming</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Central Time Zone">
-                                                                            <option value="AL">Alabama</option>
-                                                                            <option value="AR">Arkansas</option>
-                                                                            <option value="IL">Illinois</option>
-                                                                            <option value="IA">Iowa</option>
-                                                                            <option value="KS">Kansas</option>
-                                                                            <option value="KY">Kentucky</option>
-                                                                            <option value="LA">Louisiana</option>
-                                                                            <option value="MN">Minnesota</option>
-                                                                            <option value="MS">Mississippi</option>
-                                                                            <option value="MO">Missouri</option>
-                                                                            <option value="OK">Oklahoma</option>
-                                                                            <option value="SD">South Dakota</option>
-                                                                            <option value="TX">Texas</option>
-                                                                            <option value="TN">Tennessee</option>
-                                                                            <option value="WI">Wisconsin</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Eastern Time Zone">
-                                                                            <option value="CT">Connecticut</option>
-                                                                            <option value="DE">Delaware</option>
-                                                                            <option value="FL">Florida</option>
-                                                                            <option value="GA">Georgia</option>
-                                                                            <option value="IN">Indiana</option>
-                                                                            <option value="ME">Maine</option>
-                                                                            <option value="MD">Maryland</option>
-                                                                            <option value="MA">Massachusetts</option>
-                                                                            <option value="MI">Michigan</option>
-                                                                            <option value="NH">New Hampshire</option>
-                                                                            <option value="NJ">New Jersey</option>
-                                                                            <option value="NY">New York</option>
-                                                                            <option value="NC">North Carolina</option>
-                                                                            <option value="OH">Ohio</option>
-                                                                            <option value="PA">Pennsylvania</option>
-                                                                            <option value="RI">Rhode Island</option>
-                                                                            <option value="SC">South Carolina</option>
-                                                                            <option value="VT">Vermont</option>
-                                                                            <option value="VA">Virginia</option>
-                                                                            <option value="WV">West Virginia</option>
-                                                                        </optgroup>
+                                                                    <select name="txtwar" class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Warehouse">
+                                                                        <option value="0">Select Warehouse</option>  
                                                                     </select>
                                                                 </div>
 
@@ -205,197 +90,7 @@
 
 
                                                 <hr>
-                                           <!--      <div class="form-group-row row">
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">Supplier Name *</label>
-                                                        <div>
-                                                            <select class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Choose ...">
-                                                                <optgroup label="Alaskan/Hawaiian Time Zone">
-                                                                    <option value="AK">Alaska</option>
-                                                                    <option value="HI">Hawaii</option>
-                                                                </optgroup>
-                                                                <optgroup label="Pacific Time Zone">
-                                                                    <option value="CA">California</option>
-                                                                    <option value="NV">Nevada</option>
-                                                                    <option value="OR">Oregon</option>
-                                                                    <option value="WA">Washington</option>
-                                                                </optgroup>
-                                                                <optgroup label="Mountain Time Zone">
-                                                                    <option value="AZ">Arizona</option>
-                                                                    <option value="CO">Colorado</option>
-                                                                    <option value="ID">Idaho</option>
-                                                                    <option value="MT">Montana</option>
-                                                                    <option value="NE">Nebraska</option>
-                                                                    <option value="NM">New Mexico</option>
-                                                                    <option value="ND">North Dakota</option>
-                                                                    <option value="UT">Utah</option>
-                                                                    <option value="WY">Wyoming</option>
-                                                                </optgroup>
-                                                                <optgroup label="Central Time Zone">
-                                                                    <option value="AL">Alabama</option>
-                                                                    <option value="AR">Arkansas</option>
-                                                                    <option value="IL">Illinois</option>
-                                                                    <option value="IA">Iowa</option>
-                                                                    <option value="KS">Kansas</option>
-                                                                    <option value="KY">Kentucky</option>
-                                                                    <option value="LA">Louisiana</option>
-                                                                    <option value="MN">Minnesota</option>
-                                                                    <option value="MS">Mississippi</option>
-                                                                    <option value="MO">Missouri</option>
-                                                                    <option value="OK">Oklahoma</option>
-                                                                    <option value="SD">South Dakota</option>
-                                                                    <option value="TX">Texas</option>
-                                                                    <option value="TN">Tennessee</option>
-                                                                    <option value="WI">Wisconsin</option>
-                                                                </optgroup>
-                                                                <optgroup label="Eastern Time Zone">
-                                                                    <option value="CT">Connecticut</option>
-                                                                    <option value="DE">Delaware</option>
-                                                                    <option value="FL">Florida</option>
-                                                                    <option value="GA">Georgia</option>
-                                                                    <option value="IN">Indiana</option>
-                                                                    <option value="ME">Maine</option>
-                                                                    <option value="MD">Maryland</option>
-                                                                    <option value="MA">Massachusetts</option>
-                                                                    <option value="MI">Michigan</option>
-                                                                    <option value="NH">New Hampshire</option>
-                                                                    <option value="NJ">New Jersey</option>
-                                                                    <option value="NY">New York</option>
-                                                                    <option value="NC">North Carolina</option>
-                                                                    <option value="OH">Ohio</option>
-                                                                    <option value="PA">Pennsylvania</option>
-                                                                    <option value="RI">Rhode Island</option>
-                                                                    <option value="SC">South Carolina</option>
-                                                                    <option value="VT">Vermont</option>
-                                                                    <option value="VA">Virginia</option>
-                                                                    <option value="WV">West Virginia</option>
-                                                                </optgroup>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">Products *</label>
-                                                        <div>
-                                                            <select class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Choose ...">
-                                                                <optgroup label="Alaskan/Hawaiian Time Zone">
-                                                                    <option value="AK">Alaska</option>
-                                                                    <option value="HI">Hawaii</option>
-                                                                </optgroup>
-                                                                <optgroup label="Pacific Time Zone">
-                                                                    <option value="CA">California</option>
-                                                                    <option value="NV">Nevada</option>
-                                                                    <option value="OR">Oregon</option>
-                                                                    <option value="WA">Washington</option>
-                                                                </optgroup>
-                                                                <optgroup label="Mountain Time Zone">
-                                                                    <option value="AZ">Arizona</option>
-                                                                    <option value="CO">Colorado</option>
-                                                                    <option value="ID">Idaho</option>
-                                                                    <option value="MT">Montana</option>
-                                                                    <option value="NE">Nebraska</option>
-                                                                    <option value="NM">New Mexico</option>
-                                                                    <option value="ND">North Dakota</option>
-                                                                    <option value="UT">Utah</option>
-                                                                    <option value="WY">Wyoming</option>
-                                                                </optgroup>
-                                                                <optgroup label="Central Time Zone">
-                                                                    <option value="AL">Alabama</option>
-                                                                    <option value="AR">Arkansas</option>
-                                                                    <option value="IL">Illinois</option>
-                                                                    <option value="IA">Iowa</option>
-                                                                    <option value="KS">Kansas</option>
-                                                                    <option value="KY">Kentucky</option>
-                                                                    <option value="LA">Louisiana</option>
-                                                                    <option value="MN">Minnesota</option>
-                                                                    <option value="MS">Mississippi</option>
-                                                                    <option value="MO">Missouri</option>
-                                                                    <option value="OK">Oklahoma</option>
-                                                                    <option value="SD">South Dakota</option>
-                                                                    <option value="TX">Texas</option>
-                                                                    <option value="TN">Tennessee</option>
-                                                                    <option value="WI">Wisconsin</option>
-                                                                </optgroup>
-                                                                <optgroup label="Eastern Time Zone">
-                                                                    <option value="CT">Connecticut</option>
-                                                                    <option value="DE">Delaware</option>
-                                                                    <option value="FL">Florida</option>
-                                                                    <option value="GA">Georgia</option>
-                                                                    <option value="IN">Indiana</option>
-                                                                    <option value="ME">Maine</option>
-                                                                    <option value="MD">Maryland</option>
-                                                                    <option value="MA">Massachusetts</option>
-                                                                    <option value="MI">Michigan</option>
-                                                                    <option value="NH">New Hampshire</option>
-                                                                    <option value="NJ">New Jersey</option>
-                                                                    <option value="NY">New York</option>
-                                                                    <option value="NC">North Carolina</option>
-                                                                    <option value="OH">Ohio</option>
-                                                                    <option value="PA">Pennsylvania</option>
-                                                                    <option value="RI">Rhode Island</option>
-                                                                    <option value="SC">South Carolina</option>
-                                                                    <option value="VT">Vermont</option>
-                                                                    <option value="VA">Virginia</option>
-                                                                    <option value="WV">West Virginia</option>
-                                                                </optgroup>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label" for="input-mask">Quantity *</label>
-                                                        <input id="input-mask" class="form-control input-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group-row row">
-                                                    <div class="col-lg-4 col-sm-12 mb-2" data-select2-id="10">
-                                                        <label class="form-label" for="input-mask">Rate *</label>
-                                                        <div>
-                                                            <input id="input-mask" class="form-control Finput-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label" for="input-mask">Weight *</label>
-                                                        <input id="input-mask" class="form-control input-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label" for="input-mask">Gross Weight *</label>
-                                                        <input id="input-mask" class="form-control input-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group-row row">
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">Average *</label>
-                                                        <div>
-                                                            <input id="input-mask" class="form-control input-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">FRT *</label>
-                                                        <div>
-                                                            <input id="input-mask" class="form-control input-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">T - FRT *</label>
-                                                        <div>
-                                                            <input id="input-mask" class="form-control input-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group-row row">
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">Amount *</label>
-                                                        <div>
-                                                            <input id="input-mask" class="form-control input-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">TPT *</label>
-                                                        <div>
-                                                            <input id="input-mask" class="form-control input-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-
+                                    
 
 
 <h4 class="card-title mb-4">Product Details</h4>
@@ -609,51 +304,51 @@
                                                 <div class="form-group-row row">
                                                     <div class="col-lg-3 col-sm-12 mb-2">
                                                         <label class="form-label">Amount</label>
-                                                        <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" readonly />
+                                                        <input name="txtamt" type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" readonly />
                                                     </div>
                                                     <div class="col-lg-3 col-sm-12 mb-2">
                                                         <label class="form-label">Labour Expense</label>
                                                         <div>
-                                                            <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" />
+                                                            <input name="txtlab" type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" />
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3 col-sm-12 mb-2">
                                                         <label class="form-label">Product Expense</label>
                                                         <div>
-                                                            <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" />
+                                                            <input name="txtpro" type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" />
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3 col-sm-12 mb-2">
                                                         <label class="form-label">Discount</label>
                                                         <div>
-                                                            <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" />
+                                                            <input name="txtdis" type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group-row row">
                                                     <div class="col-lg-3 col-sm-12 mb-2">
                                                         <label class="form-label">Previous Balance</label>
-                                                        <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" readonly />
+                                                        <input name="txtpre" type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" readonly />
                                                     </div>
                                                     <div class="col-lg-3 col-sm-12 mb-2">
                                                         <label class="form-label">Total Balance</label>
                                                         <div>
-                                                            <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" readonly />
+                                                            <input name="txttotal" type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" readonly />
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-sm-12 mb-2">
                                                         <label class="form-label">Payment Method</label>
                                                         <div>
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input payment-method" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                                <input class="form-check-input payment-method" type="radio" name="txtmet" id="inlineRadio1" value="cash">
                                                                 <label class="form-check-label" for="inlineRadio1">Cash</label>
                                                             </div>
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input payment-method" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" checked="">
+                                                                <input class="form-check-input payment-method" type="radio" name="txtmet" id="inlineRadio2" value="cheque" checked="">
                                                                 <label class="form-check-label" for="inlineRadio2">Cheque</label>
                                                             </div>
   <div class="form-check form-check-inline">
-                                                                <input class="form-check-input payment-method" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option3">
+                                                                <input class="form-check-input payment-method" type="radio" name="txtmet" id="inlineRadio2" value="credit">
                                                                 <label class="form-check-label" for="inlineRadio2">Credit</label>
                                                             </div>
 
@@ -662,7 +357,7 @@
                                                     <div class="col-lg-3 col-sm-12 mb-2">
                                                         <label class="form-label">Balance</label>
                                                         <div>
-                                                            <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" />
+                                                            <input name="txtbal" type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -671,7 +366,7 @@
                                                         <button type="reset" class="btn btn-secondary waves-effect waves-light me-1">
                                                             Reset
                                                         </button>
-                                                        <button type="submit" class="btn btn-primary btn-block waves-effect waves-light me-1">
+                                                        <button name="sub" type="submit" class="btn btn-primary btn-block waves-effect waves-light me-1">
                                                             Submit
                                                         </button>
                                                     </div>
