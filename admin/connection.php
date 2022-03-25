@@ -121,6 +121,16 @@ class functions
         }
     }
     
+    function add_invoice($order_date,$customer_id,$warehouse_id,$total_amt,$lab_exp,$discount,$pre_bal,$balance,$pay_method,$new_bal,$bank_name,$account_num,$cheque_num,$cheque_date)
+    {
+        $conn = $_SESSION['conn'];
+        $id="";
+        $insert = mysqli_query( $conn, "insert into invoice values('$id','$order_date','$customer_id','$warehouse_id','$total_amt','$lab_exp','$discount','$pre_bal','$balance','$pay_method','$new_bal','$bank_name','$account_num','$cheque_num','$cheque_date');" ) or die(mysql_error());
+        if ( $insert )
+        {
+            echo "<script> alert('invoice Added'); </script>";
+        }
+    }
    
 
     function view_shipper()
