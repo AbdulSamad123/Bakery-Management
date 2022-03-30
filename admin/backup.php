@@ -75,9 +75,9 @@ if(isset($_POST['sub']))
 															<hr>
 															 <h4 class="card-title mb-4">Product Details</h4>
 
-                                        <div class="table-responsive" style="overflow-x:auto;">
-                                        <table class="table price-table" id="myOrder" border="1">  
-										<thead>
+       <div class="table-responsive">
+                                        <table class="table price-table" id="price-table" border="1">
+                                            <thead>
                                                 <tr>
                                                     <th>Sno</th>
                                                     <th>Products</th>
@@ -95,13 +95,126 @@ if(isset($_POST['sub']))
                                                     <th>TFRT</th>
                                                     <th>Amount</th>
                                                     <th>TPT</th>
-													<th>
-                                                        <button type="button" name="addOrder" id="0" class="btn btn-primary btn-md btn_addOrder" required><i class="fa fa-plus "></i></button>
-												
-                                                    </th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody class="list">
+                                                <tr id="row_id" data-id="1" class="dynamic_row">
+                                                <td style="width:70px;"> 1 </td>
+																			<td style="width:70px;">
+																				<div class="row">
+																					<div class="col-sm-12">
+                                                                                    <select name="product_name" class="select2 form-control select2-multiple" multiple="multiple" style="width:100px;">
+                                                                                        <option value="0">Select Product</option>
+                                                                                        <?php $obj->stock();?>
+                                                                                    </select>
+                                                                                    </div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12"> 
+                                                                                        <input name="qty" type="text" class="form-control unit_price" id="unit_price" style="width:50px;">
+                                                                                    </div>    
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input name="stock" type="text" class=" form-control unit_price" id="unit_price"style="width:50px;">
+                                                                                    </div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="rate" class=" form-control unit_price" id="unit_price" style="width:50px;">
+																					</div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+                                                                                <div class="col-sm-12">
+																						<input type="unit" class=" form-control unit_price" id="unit_price" style="width:50px;">
+																					</div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="perbox" class=" form-control unit_price" id="unit_price" style="width:50px;">
+																					</div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="buying" class=" form-control unit_price" id="unit_price" style="width:50px;">
+																					</div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="selling" class=" form-control unit_price" id="unit_price" style="width:50px;">
+																					</div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="weight" class=" form-control unit_price" id="unit_price" style="width:50px;">
+																					</div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="gross" class=" form-control unit_price" id="unit_price" style="width:50px;">
+																					</div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="average" class=" form-control unit_price" id="unit_price" style="width:50px;">
+																					</div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="frt" class=" form-control unit_price" id="unit_price" style="width:50px;">
+																					</div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="tfrt" class=" form-control unit_price" id="unit_price" style="width:50px;">
+																					</div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="amount" class=" form-control unit_price" id="unit_price" style="width:50px;">
+																					</div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="tpt" class=" form-control unit_price" id="unit_price" style="width:50px;">
+																					</div>
+																				</div>
+																			</td>
+                                                
+                                                    <td>
+                                                        <button type="button" id="0" class="btn btn-primary addfeilds"><i class="fa fa-plus "></i></button>
+                                                    </td>
+                                                </tr>
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -257,7 +370,7 @@ if(isset($_POST['sub']))
 
             </div>
 
-        </div> <!-- end slimscroll-menu -->
+        </div> <!-- end slimscroll-menu-->
     </div>
     <!-- /Right-bar -->
 
@@ -269,18 +382,93 @@ if(isset($_POST['sub']))
     <?php include_once('footer.php'); ?>
 
     <script>
-        // $(document).on('click', '.removefeilds', function(){
-        // var delete_row = $(this).data("row");
-        // $('#' + delete_row).remove();
-        // });
-		$(document).on('click','.removefeilds', function(){
-        $(this).closest('tr').remove();
-        calculate(0,0);
-        $("#").val(0);
-      })
+        function add_feilds(index) {
+            var html = "";
+            html += '<tr id="row' + index + '" data-id="' + index + '" class="dynamic_row">';
+            html += '<td style="width:70px;"><input type="text" name="index[]" class="form-control index" value="' + index + '" readonly></td>';
+            html += '<td>';
+            html += '<div class="row">';
+            html += '<div class="col-sm-12">';
+            html += '<input type="number" class=" form-control stock" id="stock' + index + '" name="stock[]" placeholder="stock" min="1" data-id="' + index + '"> <input type="hidden"  name="thisstock[]" class="thisstock" id="thisstock' + index + '">';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += '<td colspan="2">';
+            html += '<div class="row ">';
+            html += '<div class="col-sm-12">';
+            html += '<input type="number" class=" form-control unit_cost" id="unit_cost' + index + '" name="unit_cost[]" placeholder="unit_cost" min="1" data-id="' + index + '"><input type="hidden"  name="cost[]" class="cost" id="cost' + index + '" data-id="' + index + '" >';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += '<td colspan="2">';
+            html += '<div class="row">';
+            html += '<div class="col-sm-12">';
+            html += '<input type="number" class=" form-control unit_price" id="unit_price' + index + '" name="unit_price[]" placeholder="unit_price" min="1" data-id="' + index + '" ><input type="hidden"  name="price[]" id="price' + index + '" class="price" data-id="' + index + '" >';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += '<td>';
+            html += '<div class="row">';
+            html += '<div class="col-sm-12">';
+            html += '<input type="number" class=" form-control total_cost" id="total_cost' + index + '" name="total_cost[]" placeholder="total_cost" data-id="' + index + '" readonly><input type="hidden"  name="total[]" id="total' + index + '"  class="total" data-id="' + index + '" >';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += ' <td><button data-row="row' + index + '" type="button" class="btn btn-danger removefeilds"><i class="fa fa-remove "></i></button></td>';
+            html += '<tr>';
+            $(".list").append(html);
 
-		var thisindex = 0;
-        $('body').on('click', '.btn_addOrder', function() {
+        }
+        // end of add feilds function//
+
+        // reset feilds function //
+        function reset_feilds(index = 1) {
+
+            var html = "";
+            html += '<tr id="row' + index + '" data-id="' + index + '" class="dynamic_row">';
+            html += '<td style="width:70px;"><input type="text" name="index[]" class="form-control index" value="' + index + '" readonly></td>';
+            html += '<td>';
+            html += '<div class="row">';
+            html += '<div class="col-sm-12">';
+            html += '<input type="number" class=" form-control stock" id="stock' + index + '" name="stock[]" placeholder="stock" min="1" data-id="' + index + '"> <input type="hidden"  name="thisstock[]" class="thisstock" id="thisstock' + index + '">';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += '<td colspan="2">';
+            html += '<div class="row ">';
+            html += '<div class="col-sm-12">';
+            html += '<input type="number" class=" form-control unit_cost" id="unit_cost' + index + '" name="unit_cost[]" placeholder="unit_cost" min="1" data-id="' + index + '"><input type="hidden"  name="cost[]" class="cost" id="cost' + index + '" data-id="' + index + '" >';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += '<td colspan="2">';
+            html += '<div class="row">';
+            html += '<div class="col-sm-12">';
+            html += '<input type="number" class=" form-control unit_price" id="unit_price' + index + '" name="unit_price[]" placeholder="unit_price" min="1" data-id="' + index + '" ><input type="hidden"  name="price[]" id="price' + index + '" class="price" data-id="' + index + '" >';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += '<td>';
+            html += '<div class="row">';
+            html += '<div class="col-sm-12">';
+            html += '<input type="number" class=" form-control total_cost" id="total_cost' + index + '" name="total_cost[]" placeholder="total_cost" data-id="' + index + '" readonly><input type="hidden"  name="total[]" id="total' + index + '"  class="total" data-id="' + index + '" >';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += ' <td><button id="' + index + '" type="button" class="btn btn-primary addfeilds"><i class="glyphicon glyphicon-plus "></i></button></td>';
+            html += '<tr>';
+            $(".list").html(html);
+
+        }
+        // end of reset feilds function//
+
+        $(document).on('click', '.removefeilds', function(){
+        var delete_row = $(this).data("row");
+        $('#' + delete_row).remove();
+        });
+
+        var thisindex = 0;
+        $('body').on('click', '.addfeilds', function() {
             var index = [];
             $('.index').each(function() {
                 index.push($(this).val());
@@ -292,56 +480,5 @@ if(isset($_POST['sub']))
             add_feilds(thisindex)
 
         });
-
-        function add_feilds(index) {
-	    // $(document).ready(function(){
-        // $(document).on('click','.btn_addOrder', function(){	
-
-            var html = "";
-            html += '<tr>';
-			html+='<td><input type="hidden" class="form-control productcode" name="product_code[]" readonly></td>';
-			html+='<td><select name="product_name[]" class="select2 form-control product_name" style="width:100px;" required><option value="">--Select Product--</option><?php $obj->stock();?></select></td>';
-			html+='<td><input name="qty[]" type="text" class="form-control qty" style="width:50px;" readonly></td>';
-			html+='<td><input name="stock[]" type="text" class="form-control stock" style="width:50px;" readonly></td>';
-			html+='<td><input name="rate[]" type="text" class="form-control rate" style="width:50px;" readonly></td>';
-			html+='<td><input name="unit[]" type="text" class="form-control unit" style="width:50px;" readonly></td>';
-			html+='<td><input name="perbox[]" type="text" class="form-control perbox" style="width:50px;" readonly></td>';
-			html+='<td><input name="buying[]" type="text" class="form-control buying" style="width:50px;" readonly></td>';
-			html+='<td><input name="selling[]" type="text" class="form-control selling" style="width:50px;" readonly></td>';
-			html+='<td><input name="weight[]" type="text" class="form-control weight" style="width:50px;" readonly></td>';
-			html+='<td><input name="gross[]" type="text" class="form-control gross" style="width:50px;" readonly></td>';
-			html+='<td><input name="avg[]" type="text" class="form-control avg" style="width:50px;" readonly></td>';
-			html+='<td><input name="frt[]" type="text" class="form-control frt" style="width:50px;" readonly></td>';
-			html+='<td><input name="tfrt[]" type="text" class="form-control tfrt" style="width:50px;" readonly></td>';
-			html+='<td><input name="amt[]" type="text" class="form-control amt" style="width:50px;" readonly></td>';
-			html+='<td><input name="tpt[]" type="text" class="form-control tpt" style="width:50px;" readonly></td>';
-            html += ' <td><button name="remove" type="button" class="btn btn-danger removefeilds"><i class="fa fa-remove "></i></button></td>';
-            html += '<tr>';
-            $("#myOrder").append(html);
-
-	// 		$('.productid').on('change', function(e){
-	// 		var productid = this.value;
-	// 		var tr=$(this).parent().parent();
-	// 		$.ajax({
-    //         url:"getproduct.php",
-    //         method:"get",
-    //         data:{id:productid},
-    //         success:function(data){
-	// 		  tr.find(".productcode").val(data["product_code"]);
-    //           tr.find(".productname").val(data["product_name"]);
-    //           tr.find(".productstock").val(data["stock"]);
-    //           tr.find(".productsatuan").val(data["product_satuan"]);
-    //           tr.find(".productprice").val(data["sell_price"]);
-    //           tr.find(".quantity_product").val(0);
-    //           tr.find(".producttotal").val(tr.find(".quantity_product").val() * tr.find(".productprice").val());
-    //           calculate(0,0);
-	// 		}
-    //       })
-    //     })
-
-    //   })  
-
-        }
-
     </script>
 </body>

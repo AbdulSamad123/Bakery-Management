@@ -1,406 +1,79 @@
 <?php include_once('header.php'); ?>
 <?php include_once('headerLinks.php'); ?>
-<title>Bakery Software - Admin Purchase Voucher</title>
-<body>
+<?php 
+include "connection.php";
+$obj=new functions();
+$obj->con();
+if(isset($_POST['sub']))
+{
+	$obj->add_purchase($_POST['txtdate'],$_POST['txtcus'],$_POST['txtwar'],$_POST['txtamt'],$_POST['txtlab'],$_POST['txtpro'],$_POST['txtdis'],$_POST['txtpre'],$_POST['txttotal'],$_POST['txtmet'],$_POST['txtbal'],$_POST['txtbank'],$_POST['txtacc'],$_POST['txtchq'],$_POST['txtcdate']);
+}
 
-    <!-- <body data-layout="horizontal" data-topbar="colored"> -->
+?>
+			<title>Bakery Software - Admin Sale Voucher</title>
 
-    <!-- Begin page -->
-    <div id="layout-wrapper">
+			<body>
+				<!-- <body data-layout="horizontal" data-topbar="colored"> -->
+				<!-- Begin page -->
+				<div id="layout-wrapper">
+					<?php include('topbar.php'); ?>
+						<!-- ========== Left Sidebar Start ========== -->
+						<?php include('sidebar.php'); ?>
+							<!-- Left Sidebar End -->
+							<!-- ============================================================== -->
+							<!-- Start right Content here -->
+							<!-- ============================================================== -->
+							<div class="main-content">
+								<div class="page-content">
+									<div class="container-fluid">
+										<!-- start page title -->
+										<div class="row">
+											<div class="col-12">
+												<div class="page-title-box d-flex align-items-center justify-content-between">
+													<h4 class="mb-0">Purchase Voucher</h4> </div>
+											</div>
+										</div>
+										<!-- end page title -->
+										<!-- end row -->
+										<div class="row">
+											<div class="col-xl-12">
+												<div class="card">
+													<div class="card-body">
+														<h4 class="card-title">Purchase Voucher Details</h4>
+														<div class="row">
+															<div class="col-lg-12">
+																<form autocomplete="off" method="post">
+																	<div class="form-group-row row">
+																		<div class="col-lg-4 col-sm-12 mb-2">
+																			<label class="form-label">Date</label>
+																			<input name="txtdate" type="date" id="today" class="form-control" required /> </div>
+																		<!-- <div class="col-lg-4 col-sm-12 mb-2">
+																			<label class="form-label">Gate Pass *</label>
+																			<div>
+																				<input name="txtgate" type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" /> </div>
+																		</div> -->
+																		<div class="col-lg-4 col-sm-12 mb-2">
+																			<label class="form-label">Supplier</label>
+																			<select name="txtcus" class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Supplier">
+																				<option value="0">Select Supplier</option>
+																			</select>
+																		</div>
+																	</div>
+															</div>
+															<div class="row">
+																<div class="col-lg-4 col-sm-12 mb-2">
+																	<div>
+																		<label class="form-label">Warehouse</label>
+																		<select name="txtwar" class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Warehouse">
+																			<option value="0">Select Warehouse</option>
+																		</select>
+																	</div>
+																</div>
+															</div>
+															<hr>
+															 <h4 class="card-title mb-4">Product Details</h4>
 
-        <?php include('topbar.php'); ?>
-        <!-- ========== Left Sidebar Start ========== -->
-        <?php include('sidebar.php'); ?>
-
-        <!-- Left Sidebar End -->
-
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
-        <div class="main-content">
-
-            <div class="page-content">
-                <div class="container-fluid">
-
-                    <!-- start page title -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0">Purchase Voucher</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end page title -->
-                    <!-- end row -->
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Purchase Voucher Details</h4>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <form class="custom-validation" action="#">
-                                                <div class="form-group-row row">
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">Invoice Number *</label>
-                                                        <div>
-                                                            <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" disabled />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">Date</label>
-                                                        <input type="date" id="today" class="form-control" required />
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">Gate Pass *</label>
-                                                        <div>
-                                                            <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                        <div class="row">
-                                                            <div class="col-lg-4 col-sm-12 mb-2">
-                                                                <div>
-                                                              <label class="form-label">Supplier</label>    
-
-                                                                    <select class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Supplier">
-                                                                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                                                                            <option value="AK">Alaska</option>
-                                                                            <option value="HI">Hawaii</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Pacific Time Zone">
-                                                                            <option value="CA">California</option>
-                                                                            <option value="NV">Nevada</option>
-                                                                            <option value="OR">Oregon</option>
-                                                                            <option value="WA">Washington</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Mountain Time Zone">
-                                                                            <option value="AZ">Arizona</option>
-                                                                            <option value="CO">Colorado</option>
-                                                                            <option value="ID">Idaho</option>
-                                                                            <option value="MT">Montana</option>
-                                                                            <option value="NE">Nebraska</option>
-                                                                            <option value="NM">New Mexico</option>
-                                                                            <option value="ND">North Dakota</option>
-                                                                            <option value="UT">Utah</option>
-                                                                            <option value="WY">Wyoming</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Central Time Zone">
-                                                                            <option value="AL">Alabama</option>
-                                                                            <option value="AR">Arkansas</option>
-                                                                            <option value="IL">Illinois</option>
-                                                                            <option value="IA">Iowa</option>
-                                                                            <option value="KS">Kansas</option>
-                                                                            <option value="KY">Kentucky</option>
-                                                                            <option value="LA">Louisiana</option>
-                                                                            <option value="MN">Minnesota</option>
-                                                                            <option value="MS">Mississippi</option>
-                                                                            <option value="MO">Missouri</option>
-                                                                            <option value="OK">Oklahoma</option>
-                                                                            <option value="SD">South Dakota</option>
-                                                                            <option value="TX">Texas</option>
-                                                                            <option value="TN">Tennessee</option>
-                                                                            <option value="WI">Wisconsin</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Eastern Time Zone">
-                                                                            <option value="CT">Connecticut</option>
-                                                                            <option value="DE">Delaware</option>
-                                                                            <option value="FL">Florida</option>
-                                                                            <option value="GA">Georgia</option>
-                                                                            <option value="IN">Indiana</option>
-                                                                            <option value="ME">Maine</option>
-                                                                            <option value="MD">Maryland</option>
-                                                                            <option value="MA">Massachusetts</option>
-                                                                            <option value="MI">Michigan</option>
-                                                                            <option value="NH">New Hampshire</option>
-                                                                            <option value="NJ">New Jersey</option>
-                                                                            <option value="NY">New York</option>
-                                                                            <option value="NC">North Carolina</option>
-                                                                            <option value="OH">Ohio</option>
-                                                                            <option value="PA">Pennsylvania</option>
-                                                                            <option value="RI">Rhode Island</option>
-                                                                            <option value="SC">South Carolina</option>
-                                                                            <option value="VT">Vermont</option>
-                                                                            <option value="VA">Virginia</option>
-                                                                            <option value="WV">West Virginia</option>
-                                                                        </optgroup>
-                                                                    </select>
-                                                                </div>
-
-                                                          </div>
-
-                                                            <div class="col-lg-4 col-sm-12 mb-2">
-                                                                <div>
-                                                              <label class="form-label">Warehouse</label>       
-
-                                                                    <select class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Warehouse">
-                                                                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                                                                            <option value="AK">Alaska</option>
-                                                                            <option value="HI">Hawaii</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Pacific Time Zone">
-                                                                            <option value="CA">California</option>
-                                                                            <option value="NV">Nevada</option>
-                                                                            <option value="OR">Oregon</option>
-                                                                            <option value="WA">Washington</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Mountain Time Zone">
-                                                                            <option value="AZ">Arizona</option>
-                                                                            <option value="CO">Colorado</option>
-                                                                            <option value="ID">Idaho</option>
-                                                                            <option value="MT">Montana</option>
-                                                                            <option value="NE">Nebraska</option>
-                                                                            <option value="NM">New Mexico</option>
-                                                                            <option value="ND">North Dakota</option>
-                                                                            <option value="UT">Utah</option>
-                                                                            <option value="WY">Wyoming</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Central Time Zone">
-                                                                            <option value="AL">Alabama</option>
-                                                                            <option value="AR">Arkansas</option>
-                                                                            <option value="IL">Illinois</option>
-                                                                            <option value="IA">Iowa</option>
-                                                                            <option value="KS">Kansas</option>
-                                                                            <option value="KY">Kentucky</option>
-                                                                            <option value="LA">Louisiana</option>
-                                                                            <option value="MN">Minnesota</option>
-                                                                            <option value="MS">Mississippi</option>
-                                                                            <option value="MO">Missouri</option>
-                                                                            <option value="OK">Oklahoma</option>
-                                                                            <option value="SD">South Dakota</option>
-                                                                            <option value="TX">Texas</option>
-                                                                            <option value="TN">Tennessee</option>
-                                                                            <option value="WI">Wisconsin</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Eastern Time Zone">
-                                                                            <option value="CT">Connecticut</option>
-                                                                            <option value="DE">Delaware</option>
-                                                                            <option value="FL">Florida</option>
-                                                                            <option value="GA">Georgia</option>
-                                                                            <option value="IN">Indiana</option>
-                                                                            <option value="ME">Maine</option>
-                                                                            <option value="MD">Maryland</option>
-                                                                            <option value="MA">Massachusetts</option>
-                                                                            <option value="MI">Michigan</option>
-                                                                            <option value="NH">New Hampshire</option>
-                                                                            <option value="NJ">New Jersey</option>
-                                                                            <option value="NY">New York</option>
-                                                                            <option value="NC">North Carolina</option>
-                                                                            <option value="OH">Ohio</option>
-                                                                            <option value="PA">Pennsylvania</option>
-                                                                            <option value="RI">Rhode Island</option>
-                                                                            <option value="SC">South Carolina</option>
-                                                                            <option value="VT">Vermont</option>
-                                                                            <option value="VA">Virginia</option>
-                                                                            <option value="WV">West Virginia</option>
-                                                                        </optgroup>
-                                                                    </select>
-                                                                </div>
-
-                                                          </div>
-
-                                                        </div>
-
-
-                                                <hr>
-                                           <!--      <div class="form-group-row row">
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">Supplier Name *</label>
-                                                        <div>
-                                                            <select class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Choose ...">
-                                                                <optgroup label="Alaskan/Hawaiian Time Zone">
-                                                                    <option value="AK">Alaska</option>
-                                                                    <option value="HI">Hawaii</option>
-                                                                </optgroup>
-                                                                <optgroup label="Pacific Time Zone">
-                                                                    <option value="CA">California</option>
-                                                                    <option value="NV">Nevada</option>
-                                                                    <option value="OR">Oregon</option>
-                                                                    <option value="WA">Washington</option>
-                                                                </optgroup>
-                                                                <optgroup label="Mountain Time Zone">
-                                                                    <option value="AZ">Arizona</option>
-                                                                    <option value="CO">Colorado</option>
-                                                                    <option value="ID">Idaho</option>
-                                                                    <option value="MT">Montana</option>
-                                                                    <option value="NE">Nebraska</option>
-                                                                    <option value="NM">New Mexico</option>
-                                                                    <option value="ND">North Dakota</option>
-                                                                    <option value="UT">Utah</option>
-                                                                    <option value="WY">Wyoming</option>
-                                                                </optgroup>
-                                                                <optgroup label="Central Time Zone">
-                                                                    <option value="AL">Alabama</option>
-                                                                    <option value="AR">Arkansas</option>
-                                                                    <option value="IL">Illinois</option>
-                                                                    <option value="IA">Iowa</option>
-                                                                    <option value="KS">Kansas</option>
-                                                                    <option value="KY">Kentucky</option>
-                                                                    <option value="LA">Louisiana</option>
-                                                                    <option value="MN">Minnesota</option>
-                                                                    <option value="MS">Mississippi</option>
-                                                                    <option value="MO">Missouri</option>
-                                                                    <option value="OK">Oklahoma</option>
-                                                                    <option value="SD">South Dakota</option>
-                                                                    <option value="TX">Texas</option>
-                                                                    <option value="TN">Tennessee</option>
-                                                                    <option value="WI">Wisconsin</option>
-                                                                </optgroup>
-                                                                <optgroup label="Eastern Time Zone">
-                                                                    <option value="CT">Connecticut</option>
-                                                                    <option value="DE">Delaware</option>
-                                                                    <option value="FL">Florida</option>
-                                                                    <option value="GA">Georgia</option>
-                                                                    <option value="IN">Indiana</option>
-                                                                    <option value="ME">Maine</option>
-                                                                    <option value="MD">Maryland</option>
-                                                                    <option value="MA">Massachusetts</option>
-                                                                    <option value="MI">Michigan</option>
-                                                                    <option value="NH">New Hampshire</option>
-                                                                    <option value="NJ">New Jersey</option>
-                                                                    <option value="NY">New York</option>
-                                                                    <option value="NC">North Carolina</option>
-                                                                    <option value="OH">Ohio</option>
-                                                                    <option value="PA">Pennsylvania</option>
-                                                                    <option value="RI">Rhode Island</option>
-                                                                    <option value="SC">South Carolina</option>
-                                                                    <option value="VT">Vermont</option>
-                                                                    <option value="VA">Virginia</option>
-                                                                    <option value="WV">West Virginia</option>
-                                                                </optgroup>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">Products *</label>
-                                                        <div>
-                                                            <select class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Choose ...">
-                                                                <optgroup label="Alaskan/Hawaiian Time Zone">
-                                                                    <option value="AK">Alaska</option>
-                                                                    <option value="HI">Hawaii</option>
-                                                                </optgroup>
-                                                                <optgroup label="Pacific Time Zone">
-                                                                    <option value="CA">California</option>
-                                                                    <option value="NV">Nevada</option>
-                                                                    <option value="OR">Oregon</option>
-                                                                    <option value="WA">Washington</option>
-                                                                </optgroup>
-                                                                <optgroup label="Mountain Time Zone">
-                                                                    <option value="AZ">Arizona</option>
-                                                                    <option value="CO">Colorado</option>
-                                                                    <option value="ID">Idaho</option>
-                                                                    <option value="MT">Montana</option>
-                                                                    <option value="NE">Nebraska</option>
-                                                                    <option value="NM">New Mexico</option>
-                                                                    <option value="ND">North Dakota</option>
-                                                                    <option value="UT">Utah</option>
-                                                                    <option value="WY">Wyoming</option>
-                                                                </optgroup>
-                                                                <optgroup label="Central Time Zone">
-                                                                    <option value="AL">Alabama</option>
-                                                                    <option value="AR">Arkansas</option>
-                                                                    <option value="IL">Illinois</option>
-                                                                    <option value="IA">Iowa</option>
-                                                                    <option value="KS">Kansas</option>
-                                                                    <option value="KY">Kentucky</option>
-                                                                    <option value="LA">Louisiana</option>
-                                                                    <option value="MN">Minnesota</option>
-                                                                    <option value="MS">Mississippi</option>
-                                                                    <option value="MO">Missouri</option>
-                                                                    <option value="OK">Oklahoma</option>
-                                                                    <option value="SD">South Dakota</option>
-                                                                    <option value="TX">Texas</option>
-                                                                    <option value="TN">Tennessee</option>
-                                                                    <option value="WI">Wisconsin</option>
-                                                                </optgroup>
-                                                                <optgroup label="Eastern Time Zone">
-                                                                    <option value="CT">Connecticut</option>
-                                                                    <option value="DE">Delaware</option>
-                                                                    <option value="FL">Florida</option>
-                                                                    <option value="GA">Georgia</option>
-                                                                    <option value="IN">Indiana</option>
-                                                                    <option value="ME">Maine</option>
-                                                                    <option value="MD">Maryland</option>
-                                                                    <option value="MA">Massachusetts</option>
-                                                                    <option value="MI">Michigan</option>
-                                                                    <option value="NH">New Hampshire</option>
-                                                                    <option value="NJ">New Jersey</option>
-                                                                    <option value="NY">New York</option>
-                                                                    <option value="NC">North Carolina</option>
-                                                                    <option value="OH">Ohio</option>
-                                                                    <option value="PA">Pennsylvania</option>
-                                                                    <option value="RI">Rhode Island</option>
-                                                                    <option value="SC">South Carolina</option>
-                                                                    <option value="VT">Vermont</option>
-                                                                    <option value="VA">Virginia</option>
-                                                                    <option value="WV">West Virginia</option>
-                                                                </optgroup>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label" for="input-mask">Quantity *</label>
-                                                        <input id="input-mask" class="form-control input-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group-row row">
-                                                    <div class="col-lg-4 col-sm-12 mb-2" data-select2-id="10">
-                                                        <label class="form-label" for="input-mask">Rate *</label>
-                                                        <div>
-                                                            <input id="input-mask" class="form-control Finput-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label" for="input-mask">Weight *</label>
-                                                        <input id="input-mask" class="form-control input-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label" for="input-mask">Gross Weight *</label>
-                                                        <input id="input-mask" class="form-control input-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group-row row">
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">Average *</label>
-                                                        <div>
-                                                            <input id="input-mask" class="form-control input-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">FRT *</label>
-                                                        <div>
-                                                            <input id="input-mask" class="form-control input-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">T - FRT *</label>
-                                                        <div>
-                                                            <input id="input-mask" class="form-control input-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group-row row">
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">Amount *</label>
-                                                        <div>
-                                                            <input id="input-mask" class="form-control input-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 mb-2">
-                                                        <label class="form-label">TPT *</label>
-                                                        <div>
-                                                            <input id="input-mask" class="form-control input-mask" data-inputmask="'mask': '9999 - 9999999'">
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-
-
-
-<h4 class="card-title mb-4">Product Details</h4>
-
-         <div class="table-responsive">
+       <div class="table-responsive">
                                         <table class="table price-table" id="price-table" border="1">
                                             <thead>
                                                 <tr>
@@ -425,286 +98,204 @@
                                             </thead>
                                             <tbody class="list">
                                                 <tr id="row_id" data-id="1" class="dynamic_row">
-                                                    <td style="width:70px;">
-                                                        1
-                                                    </td>
-
-
-
-                                                    <td style="width:70px;">
-                                                                 <div class="row">
-                                                            <div class="col-sm-12">
-                                                            <input type="text" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="">
-                                                                <input type="hidden" name="total[]" class="total" data-id="1" id="total">
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                    
-
-
-                                               
+                                                <td style="width:70px;"> 1 </td>
+																			<td style="width:70px;">
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="text" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="">
+																						<input type="hidden" name="total[]" class="total" data-id="1" id="total"> </div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
+																						<input type="hidden" name="total[]" class="total" data-id="1" id="total"> </div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
+																						<input type="hidden" name="total[]" class="total" data-id="1" id="total"> </div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
+																						<input type="hidden" name="total[]" class="total" data-id="1" id="total"> </div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<select class="form-control">
+																							<option>KG</option>
+																							<option>PCs</option>
+																							<option>Tons</option>
+																						</select>
+																					</div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
+																						<input type="hidden" name="total[]" class="total" data-id="1" id="total"> </div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
+																						<input type="hidden" name="total[]" class="total" data-id="1" id="total"> </div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
+																						<input type="hidden" name="total[]" class="total" data-id="1" id="total"> </div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
+																						<input type="hidden" name="total[]" class="total" data-id="1" id="total"> </div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
+																						<input type="hidden" name="total[]" class="total" data-id="1" id="total"> </div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
+																						<input type="hidden" name="total[]" class="total" data-id="1" id="total"> </div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
+																						<input type="hidden" name="total[]" class="total" data-id="1" id="total"> </div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
+																						<input type="hidden" name="total[]" class="total" data-id="1" id="total"> </div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
+																						<input type="hidden" name="total[]" class="total" data-id="1" id="total"> </div>
+																				</div>
+																			</td>
+																			<td>
+																				<div class="row">
+																					<div class="col-sm-12">
+																						<input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
+																						<input type="hidden" name="total[]" class="total" data-id="1" id="total"> </div>
+																				</div>
+																			</td>
+                                                
                                                     <td>
-                                                        <div class="row">
-                                                           <div class="col-sm-12">
-                                                            <input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
-                                                                <input type="hidden" name="total[]" class="total" data-id="1" id="total">
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-
-
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                            <input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
-                                                                <input type="hidden" name="total[]" class="total" data-id="1" id="total">
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                            <input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
-                                                                <input type="hidden" name="total[]" class="total" data-id="1" id="total">
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-
-                                                    <td>
-                                                        <div class="row">
-                                                           <div class="col-sm-12">
-                                                         
-                                                            <select class="form-control">
-                                                                <option>KG</option>
-                                                                <option>PCs</option>
-                                                                <option>Tons</option>
-                                                            </select>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-
-                                                    <td>
-                                                        <div class="row">
-                                                           <div class="col-sm-12">
-                                                            <input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
-                                                                <input type="hidden" name="total[]" class="total" data-id="1" id="total">
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-
-
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                            <input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
-                                                                <input type="hidden" name="total[]" class="total" data-id="1" id="total">
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                            <input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
-                                                                <input type="hidden" name="total[]" class="total" data-id="1" id="total">
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                            <input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
-                                                                <input type="hidden" name="total[]" class="total" data-id="1" id="total">
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                            <input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
-                                                                <input type="hidden" name="total[]" class="total" data-id="1" id="total">
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                            <input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
-                                                                <input type="hidden" name="total[]" class="total" data-id="1" id="total">
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                            <input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
-                                                                <input type="hidden" name="total[]" class="total" data-id="1" id="total">
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                            <input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
-                                                                <input type="hidden" name="total[]" class="total" data-id="1" id="total">
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                            <input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
-                                                                <input type="hidden" name="total[]" class="total" data-id="1" id="total">
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                            <input type="number" class=" form-control unit_price" id="unit_price" name="unit_price[]" placeholder="" min="1">
-                                                                <input type="hidden" name="total[]" class="total" data-id="1" id="total">
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-
-                                                    <td>
-                                                        <button type="button" name="add" id="add" class="btn btn-success btn-xs">+</button>
-                                                        <!-- <button type="button" id="0" class="btn btn-primary addfeilds"><i class="fa fa-plus "></i></button> -->
+                                                        <button type="button" id="0" class="btn btn-primary addfeilds"><i class="fa fa-plus "></i></button>
                                                     </td>
                                                 </tr>
 
                                             </tbody>
-
                                         </table>
                                     </div>
-                                                
-                                                <hr>
+                   <hr>
 
-                               <h4 class="card-title">Payment Details</h4>
-
-                                                <div class="form-group-row row">
-                                                    <div class="col-lg-3 col-sm-12 mb-2">
-                                                        <label class="form-label">Amount</label>
-                                                        <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" readonly />
-                                                    </div>
-                                                    <div class="col-lg-3 col-sm-12 mb-2">
-                                                        <label class="form-label">Labour Expense</label>
-                                                        <div>
-                                                            <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-sm-12 mb-2">
-                                                        <label class="form-label">Product Expense</label>
-                                                        <div>
-                                                            <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-sm-12 mb-2">
-                                                        <label class="form-label">Discount</label>
-                                                        <div>
-                                                            <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group-row row">
-                                                    <div class="col-lg-3 col-sm-12 mb-2">
-                                                        <label class="form-label">Previous Balance</label>
-                                                        <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" readonly />
-                                                    </div>
-                                                    <div class="col-lg-3 col-sm-12 mb-2">
-                                                        <label class="form-label">Total Balance</label>
-                                                        <div>
-                                                            <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" readonly />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-sm-12 mb-2">
-                                                        <label class="form-label">Payment Method</label>
-                                                        <div>
-                                                            <div class="form-check form-check-inline">
-                                                                <input class="form-check-input payment-method" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                                                <label class="form-check-label" for="inlineRadio1">Cash</label>
-                                                            </div>
-                                                            <div class="form-check form-check-inline">
-                                                                <input class="form-check-input payment-method" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" checked="">
-                                                                <label class="form-check-label" for="inlineRadio2">Cheque</label>
-                                                            </div>
-  <div class="form-check form-check-inline">
-                                                                <input class="form-check-input payment-method" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option3">
-                                                                <label class="form-check-label" for="inlineRadio2">Credit</label>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-sm-12 mb-2">
-                                                        <label class="form-label">Balance</label>
-                                                        <div>
-                                                            <input type="text" class="form-control" data-parsley-pattern="^[a-zA-Z]+$" placeholder="Auto generated" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group-row row">
-                                                    <div class="col-lg-6 col-sm-12 mb-2">
-                                                        <button type="reset" class="btn btn-secondary waves-effect waves-light me-1">
-                                                            Reset
-                                                        </button>
-                                                        <button type="submit" class="btn btn-primary btn-block waves-effect waves-light me-1">
-                                                            Submit
-                                                        </button>
-                                                    </div>
-<div class="col-lg-6 col-sm-12 mb-2">
-      <div class="col-lg-6 col-sm-12 mb-2">
-                                                        <label class="form-label">Bank Name</label>
-                                                        <div>
-                                                            <input type="text" class="form-control" placeholder="Bank Name" />
-                                                        </div>
-                                                    </div>
-                                   
-                                   <div class="col-lg-6 col-sm-12 mb-2">
-                                                        <label class="form-label">Account No</label>
-                                                        <div>
-                                                            <input type="text" class="form-control" placeholder="Account No" />
-                                                        </div>
-                                                    </div>
-
-                                   
-                                   <div class="col-lg-6 col-sm-12 mb-2">
-                                                        <label class="form-label">Cheque No</label>
-                                                        <div>
-                                                            <input type="text" class="form-control" placeholder="Cheque No" />
-                                                        </div>
-                                                    </div>
-                                                                           
-
-                                                    </div>
-
-
-                                                    
-                                                </div>
+                   <h4 class="card-title">Payment Details</h4>
+															<div class="form-group-row row">
+																<div class="col-lg-3 col-sm-12 mb-2">
+																	<label class="form-label">Amount</label>
+																	<input name="txtamt" type="text" class="form-control" placeholder="Auto generated"/> </div>
+																<div class="col-lg-3 col-sm-12 mb-2">
+																	<label class="form-label">Labour Expense</label>
+																	<div>
+																		<input name="txtlab" type="text" class="form-control"  placeholder="Auto generated" /> </div>
+																</div>
+																<div class="col-lg-3 col-sm-12 mb-2">
+																	<label class="form-label">Product Expense</label>
+																	<div>
+																		<input name="txtpro" type="text" class="form-control"  placeholder="Auto generated" /> </div>
+																</div>
+																<div class="col-lg-3 col-sm-12 mb-2">
+																	<label class="form-label">Discount</label>
+																	<div>
+																		<input name="txtdis" type="text" class="form-control"  placeholder="Auto generated" /> </div>
+																</div>
+															</div>
+															<div class="form-group-row row">
+																<div class="col-lg-3 col-sm-12 mb-2">
+																	<label class="form-label">Previous Balance</label>
+																	<input name="txtpre" type="text" class="form-control" placeholder="Auto generated"/> </div>
+																<div class="col-lg-3 col-sm-12 mb-2">
+																	<label class="form-label">Total Balance</label>
+																	<div>
+																		<input name="txttotal" type="text" class="form-control" placeholder="Auto generated"/> </div>
+																</div>
+																<div class="col-lg-6 col-sm-12 mb-2">
+																	<label class="form-label">Payment Method</label>
+																	<div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input payment-method" type="radio" name="txtmet" id="inlineRadio1" value="cash">
+																			<label class="form-check-label" for="inlineRadio1">Cash</label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input payment-method" type="radio" name="txtmet" id="inlineRadio2" value="cheque" checked="">
+																			<label class="form-check-label" for="inlineRadio2">Cheque</label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input payment-method" type="radio" name="txtmet" id="inlineRadio2" value="credit">
+																			<label class="form-check-label" for="inlineRadio2">Credit</label>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-lg-3 col-sm-12 mb-2">
+																	<label class="form-label">Balance</label>
+																	<div>
+																		<input name="txtbal" type="text" class="form-control" placeholder="Auto generated" /> </div>
+																</div>
+																<div class="col-lg-3 col-sm-12 mb-2">
+																	<label class="form-label">Bank Name</label>
+																	<div>
+																		<input name="txtbank" type="text" class="form-control" placeholder="Bank Name" /> </div>
+																</div>
+																<div class="col-lg-3 col-sm-12 mb-2">
+																	<label class="form-label">Account No</label>
+																	<div>
+																		<input name="txtacc" type="text" class="form-control" placeholder="Account No" /> </div>
+																</div>
+															</div>
+															<div class="form-group-row row">
+																<div class="col-lg-3 col-sm-12 mb-2">
+																	<label class="form-label">Cheque No</label>																	
+																	<input name="txtchq" type="text" class="form-control" placeholder="Cheque No" />
+																</div>
+                                                                <div class="col-lg-3 col-sm-12 mb-2">
+																	<label class="form-label">Cheque Date</label>
+																	<input name="txtcdate" type="date" class="form-control" placeholder="Cheque No" /> 
+															    </div>
+															</div>
+															<div class="col-lg-6 col-sm-12 mb-2">
+																<button type="reset" class="btn btn-secondary waves-effect waves-light me-1"> Reset </button>
+																<button name="sub" type="submit" class="btn btn-primary btn-block waves-effect waves-light me-1"> Submit </button>
+															</div>       <hr>
                                             </form>
                                         </div>
                                     </div>
@@ -717,6 +308,8 @@
                 </div> <!-- container-fluid -->
             </div>
             <!-- End Page-content -->
+
+
 
         </div>
         <!-- end main content-->
@@ -772,7 +365,10 @@
                     <input class="form-check-input theme-choice" type="checkbox" id="dark-rtl-mode-switch">
                     <label class="form-check-label" for="dark-rtl-mode-switch">Dark RTL Mode</label>
                 </div>
+
+
             </div>
+
         </div> <!-- end slimscroll-menu-->
     </div>
     <!-- /Right-bar -->
@@ -780,77 +376,108 @@
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
 
-
-
-</body>
     <?php include_once('footerLinks.php');
     include_once('validation.php') ?>
-   <?php include_once('footer.php'); ?>
-   <script>
-$(document).ready(function(){
- var count = 1;
- $('#add').click(function(){
-  count = count + 1;
-  var html_code = "<tr id='row"+count+"'>";
-   html_code += "<td contenteditable='true' class='item_name'></td>";
-   html_code += "<td contenteditable='true' class='item_code'></td>";
-   html_code += "<td contenteditable='true' class='item_desc'></td>";
-   html_code += "<td contenteditable='true' class='item_price' ></td>";
-   html_code += "<td><button type='button' name='remove' data-row='row"+count+"' class='btn btn-danger btn-xs remove'>-</button></td>";   
-   html_code += "</tr>";  
-   $('#crud_table').append(html_code);
- });
- 
- $(document).on('click', '.remove', function(){
-  var delete_row = $(this).data("row");
-  $('#' + delete_row).remove();
- });
- 
- $('#save').click(function(){
-  var item_name = [];
-  var item_code = [];
-  var item_desc = [];
-  var item_price = [];
-  $('.item_name').each(function(){
-   item_name.push($(this).text());
-  });
-  $('.item_code').each(function(){
-   item_code.push($(this).text());
-  });
-  $('.item_desc').each(function(){
-   item_desc.push($(this).text());
-  });
-  $('.item_price').each(function(){
-   item_price.push($(this).text());
-  });
-  $.ajax({
-   url:"insert.php",
-   method:"POST",
-   data:{item_name:item_name, item_code:item_code, item_desc:item_desc, item_price:item_price},
-   success:function(data){
-    alert(data);
-    $("td[contentEditable='true']").text("");
-    for(var i=2; i<= count; i++)
-    {
-     $('tr#'+i+'').remove();
-    }
-    fetch_item_data();
-   }
-  });
- });
- 
- function fetch_item_data()
- {
-  $.ajax({
-   url:"fetch.php",
-   method:"POST",
-   success:function(data)
-   {
-    $('#inserted_item_data').html(data);
-   }
-  })
- }
- fetch_item_data();
- 
-});
-</script>
+    <?php include_once('footer.php'); ?>
+
+    <script>
+        function add_feilds(index) {
+            var html = "";
+            html += '<tr id="row' + index + '" data-id="' + index + '" class="dynamic_row">';
+            html += '<td style="width:70px;"><input type="text" name="index[]" class="form-control index" value="' + index + '" readonly></td>';
+            html += '<td>';
+            html += '<div class="row">';
+            html += '<div class="col-sm-12">';
+            html += '<input type="number" class=" form-control stock" id="stock' + index + '" name="stock[]" placeholder="stock" min="1" data-id="' + index + '"> <input type="hidden"  name="thisstock[]" class="thisstock" id="thisstock' + index + '">';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += '<td colspan="2">';
+            html += '<div class="row ">';
+            html += '<div class="col-sm-12">';
+            html += '<input type="number" class=" form-control unit_cost" id="unit_cost' + index + '" name="unit_cost[]" placeholder="unit_cost" min="1" data-id="' + index + '"><input type="hidden"  name="cost[]" class="cost" id="cost' + index + '" data-id="' + index + '" >';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += '<td colspan="2">';
+            html += '<div class="row">';
+            html += '<div class="col-sm-12">';
+            html += '<input type="number" class=" form-control unit_price" id="unit_price' + index + '" name="unit_price[]" placeholder="unit_price" min="1" data-id="' + index + '" ><input type="hidden"  name="price[]" id="price' + index + '" class="price" data-id="' + index + '" >';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += '<td>';
+            html += '<div class="row">';
+            html += '<div class="col-sm-12">';
+            html += '<input type="number" class=" form-control total_cost" id="total_cost' + index + '" name="total_cost[]" placeholder="total_cost" data-id="' + index + '" readonly><input type="hidden"  name="total[]" id="total' + index + '"  class="total" data-id="' + index + '" >';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += ' <td><button data-row="row' + index + '" type="button" class="btn btn-danger removefeilds"><i class="fa fa-remove "></i></button></td>';
+            html += '<tr>';
+            $(".list").append(html);
+
+        }
+        // end of add feilds function//
+
+        // reset feilds function //
+        function reset_feilds(index = 1) {
+
+            var html = "";
+            html += '<tr id="row' + index + '" data-id="' + index + '" class="dynamic_row">';
+            html += '<td style="width:70px;"><input type="text" name="index[]" class="form-control index" value="' + index + '" readonly></td>';
+            html += '<td>';
+            html += '<div class="row">';
+            html += '<div class="col-sm-12">';
+            html += '<input type="number" class=" form-control stock" id="stock' + index + '" name="stock[]" placeholder="stock" min="1" data-id="' + index + '"> <input type="hidden"  name="thisstock[]" class="thisstock" id="thisstock' + index + '">';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += '<td colspan="2">';
+            html += '<div class="row ">';
+            html += '<div class="col-sm-12">';
+            html += '<input type="number" class=" form-control unit_cost" id="unit_cost' + index + '" name="unit_cost[]" placeholder="unit_cost" min="1" data-id="' + index + '"><input type="hidden"  name="cost[]" class="cost" id="cost' + index + '" data-id="' + index + '" >';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += '<td colspan="2">';
+            html += '<div class="row">';
+            html += '<div class="col-sm-12">';
+            html += '<input type="number" class=" form-control unit_price" id="unit_price' + index + '" name="unit_price[]" placeholder="unit_price" min="1" data-id="' + index + '" ><input type="hidden"  name="price[]" id="price' + index + '" class="price" data-id="' + index + '" >';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += '<td>';
+            html += '<div class="row">';
+            html += '<div class="col-sm-12">';
+            html += '<input type="number" class=" form-control total_cost" id="total_cost' + index + '" name="total_cost[]" placeholder="total_cost" data-id="' + index + '" readonly><input type="hidden"  name="total[]" id="total' + index + '"  class="total" data-id="' + index + '" >';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += ' <td><button id="' + index + '" type="button" class="btn btn-primary addfeilds"><i class="glyphicon glyphicon-plus "></i></button></td>';
+            html += '<tr>';
+            $(".list").html(html);
+
+        }
+        // end of reset feilds function//
+
+        $(document).on('click', '.removefeilds', function(){
+        var delete_row = $(this).data("row");
+        $('#' + delete_row).remove();
+        });
+
+        var thisindex = 0;
+        $('body').on('click', '.addfeilds', function() {
+            var index = [];
+            $('.index').each(function() {
+                index.push($(this).val());
+            });
+            for (i = 0; i < index.length; i++) {
+                var thisindex = index[i];
+                thisindex = parseInt(thisindex) + 1;
+            }
+            add_feilds(thisindex)
+
+        });
+    </script>
+</body>

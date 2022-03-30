@@ -7,7 +7,7 @@ $obj=new functions();
 $obj->con();
 if(isset($_POST['sub']))
 {
-	$obj->add_stock($_POST['txtdate'],$_POST['txtware'],$_POST['txtpro'],$_POST['txtquan'],$_POST['txtunit'],$_POST['txtper'],$_POST['txtsell'],$_POST['txtveh'],$_POST['txtgate'],$_POST['txtbatch'],$_POST['txtsup']);
+	$obj->add_stock($_POST['txtdate'],$_POST['txtware'],$_POST['txtpro'],$_POST['txtcode'],$_POST['txtquan'],$_POST['txtunit'],$_POST['txtper'],$_POST['txtsell'],$_POST['txtveh'],$_POST['txtgate'],$_POST['txtbatch'],$_POST['txtsup']);
 }
 
 ?>
@@ -62,29 +62,43 @@ if(isset($_POST['sub']))
                                                     <div class="col-lg-3 col-sm-12 mb-2">
                                                         <label class="form-label">Warehouse *</label>
                                                         <select name="txtware" class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Choose ...">
-                                                                <option value="0">Select Warehouse</option>
+                                                            <option value="0">Select Warehouse</option>
+                                                            <?php $obj->warehouse();?>
                                                         </select>
                                                     </div>
-                                                    <div class="col-lg-3 col-sm-12 mb-2">
+                                                    <!-- <div class="col-lg-3 col-sm-12 mb-2">
                                                         <label class="form-label">Product *</label>
                                                         <select name="txtpro" class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Choose ...">
-                                                                <option value="0">Select Product</option>
+                                                            <option value="0">Select Product</option>
+                                                          
                                                         </select>
+                                                    </div> -->
+                                                    <div class="col-lg-3 col-sm-12 mb-2">
+                                                        <label class="form-label">Product Name *</label>
+                                                        <div>
+                                                            <input name="txtpro" type="text" class="form-control" placeholder="Enter Quantity" required />
+                                                        </div>
                                                     </div>
-                                                    <div class="col-lg-2 col-sm-12 mb-2">
+                                                    <div class="col-lg-3 col-sm-12 mb-2">
+                                                        <label class="form-label">Product Code *</label>
+                                                        <div>
+                                                            <input name="txtcode" type="text" class="form-control" placeholder="Enter Quantity" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group-row row">
+                                                    <div class="col-lg-3 col-sm-12 mb-2">
                                                         <label class="form-label">Quantity *</label>
                                                         <div>
                                                             <input name="txtquan" type="text" class="form-control" placeholder="Enter Quantity" required />
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-1 col-sm-12 mb-2">
+                                                    <div class="col-lg-3 col-sm-12 mb-2">
                                                         <label class="form-label">Unit *</label>
                                                         <div>
                                                         <input name="txtunit" type="text" class="form-control" placeholder="Enter Unit" required />
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group-row row">
                                                     <div class="col-lg-3 col-sm-12 mb-2">
                                                         <label class="form-label">Per Box/Per Price *</label>
                                                         <div>
@@ -97,6 +111,8 @@ if(isset($_POST['sub']))
                                                             <input name="txtsell" type="number" class="form-control" placeholder="Only text" required />
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="form-group-row row">
                                                     <div class="col-lg-3 col-sm-12 mb-2">
                                                         <label class="form-label">Vehicle Number *</label>
                                                         <div>
@@ -109,18 +125,17 @@ if(isset($_POST['sub']))
                                                             <input name="txtgate" type="text" class="form-control" placeholder="Enter Gatepass" required />
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group-row row">
-                                                    <div class="col-lg-6 col-sm-12 mb-2" data-select2-id="10">
+                                                    <div class="col-lg-3 col-sm-12 mb-2" data-select2-id="10">
                                                         <label class="form-label" for="input-mask">Batch Number *</label>
                                                         <div>
                                                             <input name="txtbatch" type="text" id="input-mask" class="form-control input-mask">
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-sm-12 mb-2">
+                                                    <div class="col-lg-3 col-sm-12 mb-2">
                                                         <label class="form-label" for="input-mask">Supplier *</label>
                                                         <select name="txtsup" class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Choose ...">
-                                                                <option value="0">Select Supplier</option>
+                                                            <option value="0">Select Supplier</option>
+                                                            <?php $obj->supplier();?>
                                                         </select>
                                                     </div>
                                                 </div>
