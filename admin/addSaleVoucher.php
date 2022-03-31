@@ -6,8 +6,9 @@ $obj=new functions();
 $obj->con();
 if(isset($_POST['sub']))
 {
-	$obj->add_invoice($_POST['txtdate'],$_POST['txtcus'],$_POST['txtwar'],$_POST['txtamt'],$_POST['txtlab'],$_POST['txtpro'],$_POST['txtdis'],$_POST['txtpre'],$_POST['txttotal'],$_POST['txtmet'],$_POST['txtbal'],$_POST['txtbank'],$_POST['txtacc'],$_POST['txtchq'],$_POST['txtcdate']);
+	$obj->add_invoice($_POST['txtdate'],$_POST['txtcus'],$_POST['txtwar'],$_POST['txtamt'],$_POST['txtlab'],$_POST['txtpro'],$_POST['txtdis'],$_POST['txtpre'],$_POST['txttotal'],$_POST['txtmet'],$_POST['txtbal'],$_POST['txtbank'],$_POST['txtacc'],$_POST['txtchq'],$_POST['txtcdate'],$_POST['stock_id'],$_POST['product_code'],$_POST['product_name'],$_POST['qty'],$_POST['rate'],$_POST['weight'],$_POST['gross'],$_POST['avg'],$_POST['frt'],$_POST['tfrt'],$_POST['amt'],$_POST['tpt']);
 }
+
 
 ?>
 			<title>Bakery Software - Admin Sale Voucher</title>
@@ -141,15 +142,15 @@ if(isset($_POST['sub']))
 																	<label class="form-label">Payment Method</label>
 																	<div>
 																		<div class="form-check form-check-inline">
-																			<input class="form-check-input payment-method" type="radio" name="txtmet" id="inlineRadio1" value="cash">
+																			<input class="form-check-input payment-method" type="radio" name="txtmet" id="inlineRadio1" value="0">
 																			<label class="form-check-label" for="inlineRadio1">Cash</label>
 																		</div>
 																		<div class="form-check form-check-inline">
-																			<input class="form-check-input payment-method" type="radio" name="txtmet" id="inlineRadio2" value="cheque" checked="">
+																			<input class="form-check-input payment-method" type="radio" name="txtmet" id="inlineRadio2" value="1" checked="">
 																			<label class="form-check-label" for="inlineRadio2">Cheque</label>
 																		</div>
 																		<div class="form-check form-check-inline">
-																			<input class="form-check-input payment-method" type="radio" name="txtmet" id="inlineRadio2" value="credit">
+																			<input class="form-check-input payment-method" type="radio" name="txtmet" id="inlineRadio2" value="2">
 																			<label class="form-check-label" for="inlineRadio2">Credit</label>
 																		</div>
 																	</div>
@@ -299,9 +300,9 @@ if(isset($_POST['sub']))
 
             var html = "";
             html += '<tr>';
-			html+='<td><input type="hidden" class="form-control productcode" name="product_code[]" readonly></td>';
-			html+='<td><select name="product_name[]" class="select2 form-control product_name" style="width:100px;" required><option value="">--Select Product--</option><?php $obj->stock();?></select></td>';
-			html+='<td><input name="qty[]" type="text" class="form-control qty" style="width:50px;" readonly></td>';
+			html+='<td><input type="hidden" class="form-control productcode" name="productcode[]" readonly></td>';
+			html+='<td><select name="productname[]" class="select2 form-control productname" style="width:100px;" required><option value="0">--Select Product--</option><?php $obj->stock();?></select></td>';
+			html+='<td><input name="qty[]" type="text" class="form-control qty" style="width:50px;" ></td>';
 			html+='<td><input name="stock[]" type="text" class="form-control stock" style="width:50px;" readonly></td>';
 			html+='<td><input name="rate[]" type="text" class="form-control rate" style="width:50px;" readonly></td>';
 			html+='<td><input name="unit[]" type="text" class="form-control unit" style="width:50px;" readonly></td>';
@@ -319,27 +320,37 @@ if(isset($_POST['sub']))
             html += '<tr>';
             $("#myOrder").append(html);
 
-	// 		$('.productid').on('change', function(e){
-	// 		var productid = this.value;
+	// 		$('.stockid').on('change', function(e){
+	// 		var stockid = this.value;
 	// 		var tr=$(this).parent().parent();
 	// 		$.ajax({
     //         url:"getproduct.php",
     //         method:"get",
-    //         data:{id:productid},
+    //         data:{id:stockid},
     //         success:function(data){
 	// 		  tr.find(".productcode").val(data["product_code"]);
     //           tr.find(".productname").val(data["product_name"]);
-    //           tr.find(".productstock").val(data["stock"]);
-    //           tr.find(".productsatuan").val(data["product_satuan"]);
-    //           tr.find(".productprice").val(data["sell_price"]);
-    //           tr.find(".quantity_product").val(0);
-    //           tr.find(".producttotal").val(tr.find(".quantity_product").val() * tr.find(".productprice").val());
+	// 		  tr.find(".stock").val(data["quantity"]);
+	// 		  tr.find(".unit").val(data["unit"]);
+    //           tr.find(".perbox").val(data["per_piece"]);
+	// 		  tr.find(".selling").val(data["selling"]);
+    //           tr.find(".qty").val(0);
+    //           tr.find(".rate").val(0);
+    //           tr.find(".buying").val(0);
+    //           tr.find(".weight").val(0);
+	// 		  tr.find(".gross").val(0);
+	// 		  tr.find(".avg").val(0);
+    //           tr.find(".frt").val(0);
+    //           tr.find(".tfrt").val(0);
+    //           tr.find(".amt").val(0);
+    //           tr.find(".tpt").val(0);	
     //           calculate(0,0);
 	// 		}
     //       })
     //     })
+	//   }) 
 
-    //   })  
+    
 
         }
 

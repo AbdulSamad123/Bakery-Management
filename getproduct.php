@@ -1,8 +1,11 @@
 <?php
+include "connection.php";
+$obj=new functions();
+$obj->con();
     include_once'connection.php';
 
     $id = $_GET["id"];
-    $select = $pdo->prepare("SELECT * FROM tbl_product WHERE product_id = :ppid ");
+    $select = $pdo->prepare("SELECT * FROM stock WHERE stock_id = :ppid ");
     $select->bindParam(":ppid", $id);
     $select->execute();
     $row = $select->fetch(PDO::FETCH_ASSOC);

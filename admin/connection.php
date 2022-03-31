@@ -121,14 +121,36 @@ class functions
         }
     }
     
-    function add_invoice($order_date,$customer_id,$warehouse_id,$total_amt,$lab_exp,$pro_exp,$discount,$pre_bal,$balance,$pay_method,$new_bal,$bank_name,$account_num,$cheque_num,$cheque_date)
+    function add_invoice($order_date,$customer_id,$warehouse_id,$total_amt,$lab_exp,$pro_exp,$discount,$pre_bal,$balance,$pay_method,$new_bal,$bank_name,$account_num,$cheque_num,$cheque_date,$stock_id,$product_code,$product_name,$qty,$rate,$weight,$gross,$avg,$frt,$tfrt,$amt,$tpt)
     {
-        $conn = $_SESSION['conn'];
         $id="";
         $insert = mysqli_query( $conn, "insert into invoice values('$id','$order_date','$customer_id','$warehouse_id','$total_amt','$lab_exp','$pro_exp','$discount','$pre_bal','$balance','$pay_method','$new_bal','$bank_name','$account_num','$cheque_num','$cheque_date');" ) or die(mysql_error());
         if ( $insert )
         {
-            echo "<script> alert('invoice Added'); </script>";
+
+            $last_id = mysqli_insert_id($conn);
+            if($last_id!=null){
+                for($i=0; $i<count($stock_id); $i++){
+      
+                    $rem_qty = $arr_product_stock[$i] - $arr_product_qty[$i];
+        
+                    if($rem_qty<0)
+                    {
+                        echo '<script type="text/javascript">
+                            jQuery(function validation(){
+                            swal("Warning", "Enter Sales Amount", "warning", {
+                            button: "Continue",
+                                });
+                            });
+                            </script>';
+                    }
+                    else
+                    {
+                        $update = $pdo->prepare("UPDATE tbl_product SET stock = '$rem_qty' WHERE product_id='".$arr_product_id[$i]."'");
+                        $update->execute();
+                    }    
+                }        
+            }       
         }
     }
 
